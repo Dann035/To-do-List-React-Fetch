@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import "./App.css";
 
@@ -26,6 +27,18 @@ const App = () => {
       }
     );
     const data = await response.json();
+  };
+  const deleteAllTask = async () => {
+    await fetch(
+      "https://playground.4geeks.com/todo/users/dan",
+      {
+        method: "DELETE",
+        headers: {
+          'Contact-Type': 'application/json; charset=UTF-8'
+        }
+      }
+    );
+    setTasks([])
   };
   const deleteTask = async (id) => {
     await fetch(
@@ -67,7 +80,7 @@ const App = () => {
       addTask();
     }
   };
-
+  
   useEffect(() => {
     getToDos();
   }, []);
@@ -78,6 +91,7 @@ const App = () => {
         <div className="CardLista2">
           <div className="CardLista">
             <h1>To-Do-List</h1>
+            <button onClick={deleteAllTask}>DeleteAll</button>
             <input
               type="text"
               className="btn-Add"
@@ -100,6 +114,7 @@ const App = () => {
                 </li>
               ))}
             </ul>
+              <span className="numTaskAdd">{tasks.length} {tasks.length > 1 ? 'task' : 'task'} add</span>
           </div>
         </div>
       </div>
